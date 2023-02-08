@@ -36,7 +36,7 @@ jobs:
                       sirius_user_defconfig
           make -j$(nproc) \
                        O="$output_dir" \
-                       | tee kernel.log
+                       2>&1 | tee kernel.log
           popd
       - name: Creating Config Info
         run: |
