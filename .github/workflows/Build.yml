@@ -10,7 +10,7 @@ jobs:
       - name: Installing Dependencies
         run: |
           sudo apt update -y
-          sudo apt-get install -y autoconf bc bison build-essential ccache cpio curl flex gawk gcc g++-multilib gcc-multilib git gnupg gperf libc6 libstdc++6 lib32ncurses5-dev lib32readline-dev lib32z1-dev liblz4-tool libsdl1.2-dev libssl-dev libwxgtk3.0-dev libxml2 libxml2-utils libncurses-dev libiberty-dev lzop kmod imagemagick pngcrush wget zip zlib1g-dev unzip rsync schedtool squashfs-tools xsltproc openjdk-8-jdk language-pack-zh-hans p7zip-full p7zip-rar python vim
+          sudo apt-get install -y autoconf bc bison build-essential ccache cpio curl flex gawk gcc g++-multilib gcc-multilib git gnupg gperf libc6 libstdc++6 lib32ncurses5-dev lib32readline-dev lib32z1-dev liblz4-tool libsdl1.2-dev libssl-dev libxml2 libxml2-utils libncurses-dev libiberty-dev lzop kmod imagemagick pngcrush wget zip zlib1g-dev unzip rsync schedtool squashfs-tools xsltproc openjdk-8-jdk language-pack-zh-hans p7zip-full p7zip-rar vim
           sudo apt clean
       - name: Cloning Sources and Toolchain
         run: |
