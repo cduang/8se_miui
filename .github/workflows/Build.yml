@@ -15,6 +15,15 @@ jobs:
       - name: Cloning Sources and Toolchain
         run: |
           git clone --depth=1 https://github.com/MiCode/Xiaomi_Kernel_OpenSource.git -b sirius-q-oss --recurse-submodules android_kernel_xiaomi_sdm710
+          sudo cd android_kernel_xiaomi_sdm710
+          sudo echo "CONFIG_KPROBES=y" >> arch/arm64/configs/sirius_user_defconfig
+          sudo echo "CONFIG_HAVE_KPROBES=y" >> arch/arm64/configs/sirius_user_defconfig
+          sudo echo "CONFIG_KPROBE_EVENTS=y" >> arch/arm64/configs/sirius_user_defconfig
+          sudo echo "CONFIG_BUILD_ARM64_DT_OVERLAY=y" >> arch/arm64/configs/sirius_user_defconfig
+          sudo curl https://raw.githubusercontent.com/cduang/scripts/main/kk.sh
+          sudo chmod +x kk.sh
+          sudo bash kk.sh
+          sudo cd ..
           git clone --depth=1 https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 -b ndk-release-r21 --no-tags ~/aarch64-linux-android-4.9
           git clone https://github.com/SakuraNotStupid/AnyKernel3
       - name: Compiling Kernel
