@@ -35,7 +35,7 @@ jobs:
           PATH=$CLANG:$GCC64:$GCC32:$PATH
           export PATH
           export ARCH=arm64
-          export SUBARCH=arm64
+          #export SUBARCH=arm64
           #export USE_CCACHE=1
           export CLANG_TRIPLE=aarch64-linux-gnu
           export CROSS_COMPILE=aarch64-linux-android-
