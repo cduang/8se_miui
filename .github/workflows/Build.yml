@@ -14,11 +14,13 @@ jobs:
           sudo apt clean
       - name: Cloning Sources and Toolchain
         run: |
-          git clone https://github.com/LineageOS/android_kernel_xiaomi_sdm710 --depth=1 -b lineage-19.1 --recurse-submodules
-          git clone https://gitlab.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-r445002 --depth=1 --single-branch --no-tags -b 12.0 ~/clang
-          git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 -b android-10.0.0_r47 --depth=1 --single-branch --no-tags ~/aarch64-linux-android-4.9
-          git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9 -b android-10.0.0_r47 --depth=1 --single-branch --no-tags ~/arm-linux-androideabi-4.9
+          git clone https://github.com/MiCode/Xiaomi_Kernel_OpenSource.git --depth=1 -b sirius-q-oss --recurse-submodules
+          git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 -b ndk-release-r21 --depth=1 --single-branch --no-tags ~/aarch64-linux-android-4.9
+          git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9  -b ndk-release-r21 --depth=1 --single-branch --no-tags ~/arm-linux-androideabi-4.9
           git clone https://github.com/SakuraNotStupid/AnyKernel3
+          mkdir clang
+          wget https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/b48af626dc66f956cb9890aa8ea35e265719a4a9/clang-r377782d.tar.gz
+          tar -C "clang" -xvzf clang-r377782d.tar.gz
       - name: Compiling Kernel
         run: |
           CLANG=~/clang/bin
@@ -33,9 +35,7 @@ jobs:
           output_dir=out
           pushd android_kernel_xiaomi_sdm710
           make O="$output_dir" \
-                      sdm670-perf_defconfig \
-                      xiaomi/sdm710-common.config \
-                      xiaomi/sirius.config
+                  sirius_user_defconfig
           make -j $(nproc) \
                        O="$output_dir" \
                        CC=clang
