@@ -21,6 +21,7 @@ jobs:
         run: |
           export ARCH=arm64
           export SUBARCH=arm64
+          export USE_CCACHE=1
           export CROSS_COMPILE=/home/runner/aarch64-linux-android-4.9/bin/aarch64-linux-android-
           output_dir=out
           pushd android_kernel_xiaomi_sdm710
