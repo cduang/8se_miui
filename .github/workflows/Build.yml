@@ -1,35 +1,44 @@
-name: Build MI8SE(sirius) MIUI Kernel
+name: Build KernelSU For MI8SE(sirius)
 
 on:
   workflow_dispatch:
 
 jobs:
   KSUForSirius:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - name: Installing Dependencies
         run: |
           sudo apt update -y
-          sudo apt-get install -y autoconf bc bison build-essential ccache cpio curl flex gawk gcc g++-multilib gcc-multilib git gnupg gperf libc6 libstdc++6 lib32ncurses5-dev lib32readline-dev lib32z1-dev liblz4-tool libsdl1.2-dev libssl-dev libxml2 libxml2-utils libncurses-dev libiberty-dev lzop kmod imagemagick pngcrush wget zip zlib1g-dev unzip rsync schedtool squashfs-tools xsltproc openjdk-8-jdk language-pack-zh-hans p7zip-full p7zip-rar vim
+          sudo apt-get install -y zip flex bison libncurses-dev gawk  libiberty-dev autoconf kmod bc build-essential gcc libc6 curl libstdc++6 git wget libssl-dev cpio p7zip-full
           sudo apt clean
       - name: Cloning Sources and Toolchain
         run: |
-          git clone --depth=1 https://github.com/SDM710-Development/android_kernel_xiaomi_sdm710.git -b 10.0-caf --recurse-submodules android_kernel_xiaomi_sdm710
-          git clone --depth=1 https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 -b ndk-release-r21 --no-tags ~/aarch64-linux-android-4.9
+          git clone https://github.com/LineageOS/android_kernel_xiaomi_sdm710 --depth=1 -b lineage-19.1 --recurse-submodules
+          git clone https://gitlab.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-r445002 --depth=1 --single-branch --no-tags -b 12.0 ~/clang
+          git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 -b android-10.0.0_r47 --depth=1 --single-branch --no-tags ~/aarch64-linux-android-4.9
+          git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9 -b android-10.0.0_r47 --depth=1 --single-branch --no-tags ~/arm-linux-androideabi-4.9
           git clone https://github.com/SakuraNotStupid/AnyKernel3
       - name: Compiling Kernel
         run: |
+          CLANG=~/clang/bin
+          GCC32=~/arm-linux-androideabi-4.9/bin
+          GCC64=~/aarch64-linux-android-4.9/bin
+          PATH=$CLANG:$GCC64:$GCC32:$PATH
+          export PATH
           export ARCH=arm64
-          export SUBARCH=arm64
-          export USE_CCACHE=1
-          export CROSS_COMPILE=/home/runner/aarch64-linux-android-4.9/bin/aarch64-linux-android-
+          export CLANG_TRIPLE=aarch64-linux-gnu
+          export CROSS_COMPILE=aarch64-linux-android-
+          export CROSS_COMPILE_ARM32=arm-linux-androideabi-
           output_dir=out
           pushd android_kernel_xiaomi_sdm710
           make O="$output_dir" \
-                      sirius_defconfig
-          make -j$(nproc) \
+                      sdm670-perf_defconfig \
+                      xiaomi/sdm710-common.config \
+                      xiaomi/sirius.config
+          make -j $(nproc) \
                        O="$output_dir" \
-                       | tee kernel.log
+                       CC=clang
           popd
       - name: Creating Config Info
         run: |
