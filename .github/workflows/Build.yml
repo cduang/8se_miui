@@ -15,12 +15,15 @@ jobs:
       - name: Cloning Sources and Toolchain
         run: |
           git clone --depth=1 https://github.com/MiCode/Xiaomi_Kernel_OpenSource.git -b sirius-q-oss --recurse-submodules android_kernel_xiaomi_sdm710
+          git clone --depth=1 https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 -b ndk-release-r21 --no-tags ~/aarch64-linux-android-4.9
+          git clone https://github.com/SakuraNotStupid/AnyKernel3
+          git clone https://github.com/ookiineko/KernelSU
+          sudo cp -rv  KernelSU/kernel  android_kernel_xiaomi_sdm710/drivers/kernelsu
+          sudo echo "obj-y += kernelsu/" >> android_kernel_xiaomi_sdm710/drivers/Makefile
           sudo echo "CONFIG_KPROBES=y" >> android_kernel_xiaomi_sdm710/arch/arm64/configs/sirius_user_defconfig
           sudo echo "CONFIG_HAVE_KPROBES=y" >> android_kernel_xiaomi_sdm710/arch/arm64/configs/sirius_user_defconfig
           sudo echo "CONFIG_KPROBE_EVENTS=y" >> android_kernel_xiaomi_sdm710/arch/arm64/configs/sirius_user_defconfig
           sudo echo "CONFIG_BUILD_ARM64_DT_OVERLAY=y" >> android_kernel_xiaomi_sdm710/arch/arm64/configs/sirius_user_defconfig
-          git clone --depth=1 https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 -b ndk-release-r21 --no-tags ~/aarch64-linux-android-4.9
-          git clone https://github.com/SakuraNotStupid/AnyKernel3
       - name: Compiling Kernel
         run: |
           export ARCH=arm64
@@ -29,9 +32,6 @@ jobs:
           export CROSS_COMPILE=/home/runner/aarch64-linux-android-4.9/bin/aarch64-linux-android-
           output_dir=out
           pushd android_kernel_xiaomi_sdm710
-          sudo curl https://raw.githubusercontent.com/cduang/scripts/main/kk.sh
-          sudo chmod +x kk.sh
-          sudo bash kk.sh
           make O="$output_dir" \
                       sirius_user_defconfig
           make -j$(nproc) \
