@@ -26,7 +26,7 @@ jobs:
           pushd android_kernel_xiaomi_sdm710
           make O="$output_dir" \
                       sirius_user_defconfig
-          make -j $(nproc) \
+          make -j$(nproc) \
                        O="$output_dir"
           popd
       - name: Creating Config Info
