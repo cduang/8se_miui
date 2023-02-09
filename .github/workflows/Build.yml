@@ -14,15 +14,15 @@ jobs:
           sudo apt clean
       - name: Cloning Sources and Toolchain
         run: |
-          git clone https://github.com/cduang/Xiaomi_Kernel_OpenSource.git --depth=1 -b sirius-q-oss --recurse-submodules android_kernel_xiaomi_sdm710
+          git clone https://github.com/SDM710-Development/android_kernel_xiaomi_sdm710 --depth=1 -b 10.0-caf --recurse-submodules android_kernel_xiaomi_sdm710
           git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 -b ndk-release-r21 --depth=1 --single-branch --no-tags ~/aarch64-linux-android-4.9
           git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9  -b ndk-release-r21 --depth=1 --single-branch --no-tags ~/arm-linux-androideabi-4.9
           git clone https://github.com/cduang/AnyKernel3
           mkdir clang
           wget https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/android10-qpr1-release/clang-r353983c.tar.gz -q --show-progress
           tar -C "clang" -xvzf clang-r353983c.tar.gz
-          git clone https://github.com/cduang/KernelSU
-          mkdir android_kernel_xiaomi_sdm710/drivers/kernelsu && cp -rv KernelSU/kernel/* android_kernel_xiaomi_sdm710/drivers/kernelsu
+          #git clone https://github.com/cduang/KernelSU
+          #mkdir android_kernel_xiaomi_sdm710/drivers/kernelsu && cp -rv KernelSU/kernel/* android_kernel_xiaomi_sdm710/drivers/kernelsu
       - name: Compiling Kernel
         run: |
           CLANG=~/clang/bin
