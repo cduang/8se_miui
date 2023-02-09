@@ -14,7 +14,7 @@ jobs:
           sudo apt clean
       - name: Cloning Sources and Toolchain
         run: |
-          git clone https://github.com/SDM710-Development/android_kernel_xiaomi_sdm710 --depth=1 -b 10.0-caf --recurse-submodules android_kernel_xiaomi_sdm710
+          git clone --depth=1 https://github.com/guoxiao1213/android_kernel_xiaomi_sdm710 -b lineage-18.1 --recurse-submodules android_kernel_xiaomi_sdm710
           git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 -b ndk-release-r21 --depth=1 --single-branch --no-tags ~/aarch64-linux-android-4.9
           git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9  -b ndk-release-r21 --depth=1 --single-branch --no-tags ~/arm-linux-androideabi-4.9
           git clone https://github.com/cduang/AnyKernel3
