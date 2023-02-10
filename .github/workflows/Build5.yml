@@ -38,9 +38,9 @@ jobs:
           export PATH
           export ARCH=arm64
           export SUBARCH=arm64
-          export CLANG_TRIPLE="ccahe aarch64-linux-gnu-"
-          export CROSS_COMPILE="ccahe aarch64-linux-android-"
-          export CROSS_COMPILE_ARM32="ccahe arm-linux-androideabi-"
+          export CLANG_TRIPLE="ccache aarch64-linux-gnu-"
+          export CROSS_COMPILE="cccahe aarch64-linux-android-"
+          export CROSS_COMPILE_ARM32="ccache arm-linux-androideabi-"
           export USE_CCACHE=1
           export CCACHE_DIR=$(pwd)/.ccache
           ccache -M 10G
