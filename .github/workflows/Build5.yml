@@ -10,7 +10,7 @@ jobs:
       - name: Installing Dependencies
         run: |
           sudo apt update -y
-          sudo apt-get install -y zip flex bison libncurses-dev gawk  libiberty-dev autoconf kmod bc build-essential gcc libc6 curl libstdc++6 git wget libssl-dev cpio p7zip-full
+          sudo apt-get install -y ccahe zip flex bison libncurses-dev gawk  libiberty-dev autoconf kmod bc build-essential gcc libc6 curl libstdc++6 git wget libssl-dev cpio p7zip-full
           sudo apt clean
       - name: Cloning Sources and Toolchain
         run: |
@@ -19,7 +19,7 @@ jobs:
           git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9  -b ndk-release-r21 --depth=1 --single-branch --no-tags ~/arm-linux-androideabi-4.9
           git clone https://github.com/cduang/AnyKernel3
           mkdir clang
-          curl -o clang.tar.gz -L https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/android10-qpr1-release/clang-r353983c.tar.gz
+          curl -o clang.tar.gz -L -# https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/android10-qpr1-release/clang-r353983c.tar.gz
           tar -C "clang" -xvzf clang.tar.gz
           git clone https://github.com/cduang/KernelSU
           mkdir android_kernel_xiaomi_sdm710/drivers/kernelsu && cp -rv KernelSU/kernel/* android_kernel_xiaomi_sdm710/drivers/kernelsu
