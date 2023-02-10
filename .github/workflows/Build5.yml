@@ -10,7 +10,7 @@ jobs:
       - name: Installing Dependencies
         run: |
           sudo apt update -y
-          sudo apt-get install -y ccache zip flex bison libncurses-dev gawk  libiberty-dev autoconf kmod bc build-essential gcc libc6 curl libstdc++6 git wget libssl-dev cpio p7zip-full
+          sudo apt-get install -y neofetch ccache zip flex bison libncurses-dev gawk  libiberty-dev autoconf kmod bc build-essential gcc libc6 curl libstdc++6 git wget libssl-dev cpio p7zip-full
           sudo apt clean
       - name: Cloning Sources and Toolchain
         run: |
@@ -28,6 +28,7 @@ jobs:
           echo "CONFIG_HAVE_KPROBES=y" >> android_kernel_xiaomi_sdm710/arch/arm64/configs/sirius_defconfig
           echo "CONFIG_KPROBE_EVENTS=y" >> android_kernel_xiaomi_sdm710/arch/arm64/configs/sirius_defconfig
           echo "source \"drivers/kernelsu/Kconfig\"" >> android_kernel_xiaomi_sdm710/drivers/Kconfig
+          neofetch
       - name: Compiling Kernel
         run: |
           CLANG=~/clang/bin
