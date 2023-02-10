@@ -1,4 +1,4 @@
-name: Build MI8SE(sirius) 3
+name: Build MI8SE(sirius) 4 Lineage17.1
 
 on:
   workflow_dispatch:
