@@ -10,7 +10,7 @@ jobs:
       - name: Installing Dependencies
         run: |
           sudo apt update -y
-          sudo apt-get install -y ccahe zip flex bison libncurses-dev gawk  libiberty-dev autoconf kmod bc build-essential gcc libc6 curl libstdc++6 git wget libssl-dev cpio p7zip-full
+          sudo apt-get install -y ccache zip flex bison libncurses-dev gawk  libiberty-dev autoconf kmod bc build-essential gcc libc6 curl libstdc++6 git wget libssl-dev cpio p7zip-full
           sudo apt clean
       - name: Cloning Sources and Toolchain
         run: |
@@ -42,14 +42,14 @@ jobs:
           export CROSS_COMPILE_ARM32=arm-linux-androideabi-
           export USE_CCACHE=1
           export CCACHE_DIR=$(pwd)/.ccache
-          ccahe -M 10G
+          ccache -M 10G
           output_dir=out
           pushd android_kernel_xiaomi_sdm710
           make O="$output_dir" \
                   sirius_defconfig
           time make -j$(nproc) \
                   O="$output_dir" \
-                  CC="ccahe clang" 2>&1 |tee kernel.log
+                  CC="ccache clang" 2>&1 |tee kernel.log
           popd
       - name: Creating Config Info
         run: |
