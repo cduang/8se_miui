@@ -37,14 +37,14 @@ jobs:
           export USE_CCACHE=1
           export CCACHE_DIR=~/.ccache
           
-          mkdir OLLVM-9.0.1/build
-          cd OLLVM-9.0.1/build
+          mkdir /home/runner/OLLVM-9.0.1/build
+          cd /home/runner/OLLVM-9.0.1/build
           ccache -M 10G
-          cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_INCLUDE_TESTS=OFF ../OLLVM-9.0.1
+          cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_INCLUDE_TESTS=OFF ../
           time make -j$(nproc) \
                   O="$output_dir" \
                   CC="ccache clang" 2>&1 |tee ollvm.log
-          cd ..        
+          cd /home/runner/OLLVM-9.0.1
       - name: Creating Config Info
         run: |
           echo "Device: My Linux
