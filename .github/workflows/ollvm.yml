@@ -1,4 +1,4 @@
-name: Build Ollvm
+name: Build Ollvm V9.0.1
 
 on:
   workflow_dispatch:
@@ -17,15 +17,16 @@ jobs:
           git clone -b llvm-9.0.1 https://github.com/cduang/obfuscator.git  --depth=1  obfuscator
           cd obfuscator
           pwd
-      - name: Modifying Config
+      - name: Checking Version
         run: |    
-                  #echo "source \"drivers/kernelsu/Kconfig\"" >> android_kernel_xiaomi_sdm710/drivers/Kconfig
+          cmake --version
+          gcc --version
       - name: Compiling Ollvm
         run: |
           mkdir build
           cd build
-          cmake -DCMAKE_BUILD_TYPE=Release ../obfuscator/
-          make -j7
+          cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_INCLUDE_TESTS=OFF ../obfuscator/
+          make -j$(nproc)
           pwd
           ls     
       - name: Creating Config Info
@@ -41,13 +42,13 @@ jobs:
           mkdir Ollvm
           cp -rv bin  Ollvm
           pushd Ollvm
-                7z a -mx9 ../Ollvm.zip *
+                7z a -mx9 ../Ollvm-V9.0.1.zip *
           popd
       - name: Uploading Ollvm Package to GH-Release
         uses: ncipollo/release-action@v1.8.6
         with:
-          artifacts: Ollvm.zip
-          name: " Ollvm"
+          artifacts: Ollvm-V9.0.1.zip
+          name: " Ollvm-V9.0.1"
           tag: " ${{ github.run_number }}_Ollvm"
           bodyFile: "INFO.txt"
           token: ${{ secrets.GITHUB_TOKEN }}
