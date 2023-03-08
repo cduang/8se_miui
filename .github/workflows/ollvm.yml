@@ -42,7 +42,6 @@ jobs:
           cd Ollvm-9
           mkdir build
           cd build
-          ccache -M 10G
           cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_INCLUDE_TESTS=OFF ../
           pwd
           time make -j$(nproc)
