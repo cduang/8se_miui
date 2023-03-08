@@ -20,7 +20,7 @@ jobs:
           #git clone https://gitlab.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-r445002 --depth=1 --single-branch --no-tags -b 11.0 ~/clang
           #git clone https://github.com/cduang/AnyKernel3
           #git clone https://github.com/cduang/KernelSU
-          git clone -b llvm-4.0 https://github.com/obfuscator-llvm/obfuscator.git
+          git clone -b llvm-4.0 https://github.com/cduang/obfuscator.git
           mkdir build
           cd build
           cmake -DCMAKE_BUILD_TYPE=Release ../obfuscator/
