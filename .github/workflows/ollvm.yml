@@ -10,7 +10,8 @@ jobs:
       - name: Installing Dependencies
         run: |
           sudo apt update -y
-          sudo apt-get install -y ccache zip flex bison libncurses-dev gawk  libiberty-dev autoconf kmod bc build-essential gcc libc6 curl libstdc++6 git wget libssl-dev cpio p7zip-full
+                    #sudo apt-get install -y ccache zip flex bison libncurses-dev gawk  libiberty-dev autoconf kmod bc build-essential gcc libc6 curl libstdc++6 git wget libssl-dev cpio p7zip-full
+          sudo apt-get install -y  zip git wget p7zip-full
           sudo apt clean
       - name: Cloning Sources and Toolchain
         run: |
@@ -25,18 +26,18 @@ jobs:
                   #echo "source \"drivers/kernelsu/Kconfig\"" >> android_kernel_xiaomi_sdm710/drivers/Kconfig
       - name: Compiling Ollvm
         run: |
-          CLANG=~/clang/bin
-          GCC32=~/arm-linux-androideabi-4.9/bin
-          GCC64=~/aarch64-linux-android-4.9/bin
-          PATH=$CLANG:$GCC64:$GCC32:$PATH
-          export PATH
-          export ARCH=arm64
-          export SUBARCH=arm64
-          export CLANG_TRIPLE=aarch64-linux-gnu-
-          export CROSS_COMPILE=aarch64-linux-android-
-          export CROSS_COMPILE_ARM32=arm-linux-androideabi-
-          export USE_CCACHE=1
-          export CCACHE_DIR=~/.ccache
+          #CLANG=~/clang/bin
+          #GCC32=~/arm-linux-androideabi-4.9/bin
+          #GCC64=~/aarch64-linux-android-4.9/bin
+          #PATH=$CLANG:$GCC64:$GCC32:$PATH
+          #export PATH
+          #export ARCH=arm64
+          #export SUBARCH=arm64
+          #export CLANG_TRIPLE=aarch64-linux-gnu-
+          #export CROSS_COMPILE=aarch64-linux-android-
+          #export CROSS_COMPILE_ARM32=arm-linux-androideabi-
+          #export USE_CCACHE=1
+          #export CCACHE_DIR=~/.ccache
           
           cd Ollvm-9
           mkdir build
@@ -44,9 +45,10 @@ jobs:
           ccache -M 10G
           cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_INCLUDE_TESTS=OFF ../
           pwd
-          time make -j$(nproc) \
+          time make -j$(nproc)
+                                        #\
                                         #O="$output_dir" \
-                  CC="ccache clang" 2>&1 |tee ollvm.log
+                  #CC="ccache clang" 2>&1 |tee ollvm.log
           pwd       
       - name: Creating Config Info
         run: |
