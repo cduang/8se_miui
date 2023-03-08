@@ -36,15 +36,15 @@ jobs:
           export CROSS_COMPILE_ARM32=arm-linux-androideabi-
           export USE_CCACHE=1
           export CCACHE_DIR=~/.ccache
-          output_dir=build
-          pushd OLLVM-9.0.1
-              ccache -M 10G
-              #make O="$output_dir"
-              cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_INCLUDE_TESTS=OFF
-              time make -j$(nproc) \
+          
+          mkdir OLLVM-9.0.1/build
+          cd OLLVM-9.0.1/build
+          ccache -M 10G
+          cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_INCLUDE_TESTS=OFF ../OLLVM-9.0.1
+          time make -j$(nproc) \
                   O="$output_dir" \
                   CC="ccache clang" 2>&1 |tee ollvm.log
-          popd
+          cd ..        
       - name: Creating Config Info
         run: |
           echo "Device: My Linux
@@ -56,7 +56,7 @@ jobs:
       - name: Packaging the Ollvm
         run: |
           mkdir Ollvm
-          cp -v OLLVM-9.0.1  Ollvm
+          cp -rv bin  Ollvm
           pushd Ollvm
                 7z a -mx9 ../Ollvm.zip *
           popd
