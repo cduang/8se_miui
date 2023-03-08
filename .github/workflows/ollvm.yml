@@ -10,16 +10,16 @@ jobs:
       - name: Installing Dependencies
         run: |
           sudo apt update -y
-                    #sudo apt-get install -y ccache zip flex bison libncurses-dev gawk  libiberty-dev autoconf kmod bc build-essential gcc libc6 curl libstdc++6 git wget libssl-dev cpio p7zip-full
-          sudo apt-get install -y  zip git wget p7zip-full
+          sudo apt-get install -y ccache zip flex bison libncurses-dev gawk  libiberty-dev autoconf kmod bc build-essential gcc libc6 curl libstdc++6 git wget libssl-dev cpio p7zip-full
+          #sudo apt-get install -y  zip git wget p7zip-full cmake
           sudo apt clean
       - name: Cloning Sources and Toolchain
         run: |
           git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 -b ndk-release-r21 --depth=1 --single-branch --no-tags ~/aarch64-linux-android-4.9  
           git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9  -b ndk-release-r21 --depth=1 --single-branch --no-tags ~/arm-linux-androideabi-4.9
           git clone https://gitlab.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-r445002 --depth=1 --single-branch --no-tags -b 11.0 ~/clang
-                #git clone https://github.com/o2e/OLLVM-9.0.1.git
-          git clone https://github.com/StaringTheWorldAtMyRearView123/Ollvm-9.git
+          git clone https://github.com/o2e/OLLVM-9.0.1.git
+                  #git clone https://github.com/StaringTheWorldAtMyRearView123/Ollvm-9.git
                   #git clone -b llvm-4.0 https://github.com/cduang/obfuscator.git
       - name: Modifying Config
         run: |    
@@ -39,7 +39,7 @@ jobs:
           #export USE_CCACHE=1
           #export CCACHE_DIR=~/.ccache
           
-          cd Ollvm-9
+          cd OLLVM-9.0.1
           mkdir build
           cd build
           cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_INCLUDE_TESTS=OFF ../
