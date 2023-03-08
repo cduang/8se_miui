@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  KSUForSirius:
+  Ollvm_For_Me:
     runs-on: ubuntu-latest
     steps:
       - name: Installing Dependencies
@@ -17,17 +17,11 @@ jobs:
           git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 -b ndk-release-r21 --depth=1 --single-branch --no-tags ~/aarch64-linux-android-4.9  
           git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9  -b ndk-release-r21 --depth=1 --single-branch --no-tags ~/arm-linux-androideabi-4.9
           git clone https://gitlab.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-r445002 --depth=1 --single-branch --no-tags -b 11.0 ~/clang
-          #git clone https://github.com/cduang/AnyKernel3
-          #git clone https://github.com/cduang/KernelSU
           git clone https://github.com/o2e/OLLVM-9.0.1.git
-          #git clone -b llvm-4.0 https://github.com/cduang/obfuscator.git
-          mkdir build
-          cd build
-          cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_INCLUDE_TESTS=OFF ../obfuscator/
-          make -j$(nproc)
+                  #git clone -b llvm-4.0 https://github.com/cduang/obfuscator.git
       - name: Modifying Config
         run: |    
-          #echo "source \"drivers/kernelsu/Kconfig\"" >> android_kernel_xiaomi_sdm710/drivers/Kconfig
+                  #echo "source \"drivers/kernelsu/Kconfig\"" >> android_kernel_xiaomi_sdm710/drivers/Kconfig
       - name: Compiling Ollvm
         run: |
           CLANG=~/clang/bin
