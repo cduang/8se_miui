@@ -5,13 +5,13 @@ on:
 
 jobs:
   KSUForSirius:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-16.04
     steps:
       - name: Installing Dependencies
         run: |
-          sudo apt update -y
-          sudo apt-get install -y ccache zip flex bison libncurses-dev gawk  libiberty-dev autoconf kmod bc build-essential gcc libc6 curl libstdc++6 git wget libssl-dev cpio p7zip-full
-          sudo apt clean
+          #sudo apt update -y
+          #sudo apt-get install -y ccache zip flex bison libncurses-dev gawk  libiberty-dev autoconf kmod bc build-essential gcc libc6 curl libstdc++6 git wget libssl-dev cpio p7zip-full
+          #sudo apt clean
       - name: Cloning Sources and Toolchain
         run: |
           #git clone https://github.com/cduang/android_kernel_xiaomi_sdm710-2 -b lineage-18.1 --depth=1 --recurse-submodules android_kernel_xiaomi_sdm710
@@ -23,7 +23,7 @@ jobs:
           git clone -b llvm-4.0 https://github.com/cduang/obfuscator.git
           mkdir build
           cd build
-          cmake -DCMAKE_BUILD_TYPE=Release ../obfuscator/
+          cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_INCLUDE_TESTS=OFF ../obfuscator/
           make -j$(nproc)
       - name: Modifying Config
         run: |    
