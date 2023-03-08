@@ -39,7 +39,7 @@ jobs:
           output_dir=build
           pushd OLLVM-9.0.1
               ccache -M 10G
-              make O="$output_dir"
+              #make O="$output_dir"
               cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_INCLUDE_TESTS=OFF
               time make -j$(nproc) \
                   O="$output_dir" \
