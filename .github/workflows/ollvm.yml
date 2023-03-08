@@ -5,7 +5,7 @@ on:
 
 jobs:
   Ollvm_For_Me:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
       - name: Installing Dependencies
         run: |
@@ -14,26 +14,18 @@ jobs:
           sudo apt clean
       - name: Cloning Sources and Toolchain
         run: |
-          #git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 -b ndk-release-r21 --depth=1 --single-branch --no-tags ~/aarch64-linux-android-4.9  
-          #git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9  -b ndk-release-r21 --depth=1 --single-branch --no-tags ~/arm-linux-androideabi-4.9
-          #git clone https://gitlab.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-r445002 --depth=1 --single-branch --no-tags -b 11.0 ~/clang
-
-          git clone -b r23c-release https://github.com/codetronik/ollvm-ndk.git
-          cd ollvm-ndk
+          git clone -b llvm-9.0.1 https://github.com/cduang/obfuscator.git  --depth=1  obfuscator
+          cd obfuscator
           pwd
       - name: Modifying Config
         run: |    
                   #echo "source \"drivers/kernelsu/Kconfig\"" >> android_kernel_xiaomi_sdm710/drivers/Kconfig
       - name: Compiling Ollvm
         run: |
-          repo init -u https://android.googlesource.com/platform/manifest -b llvm-toolchain
-          cp manifest_8481493.xml .repo/manifests
-          repo init -m manifest_8481493.xml
-          repo sync -c
-          curl -LO http://archive.ubuntu.com/ubuntu/pool/main/libf/libffi/libffi6_3.2.1-8_amd64.deb
-          sudo dpkg -i libffi6_3.2.1-8_amd64.deb
-          python toolchain/llvm_android/build.py
-                  #python toolchain/llvm_android/build.py --no-build=linux // windows binary
+          mkdir build
+          cd build
+          cmake -DCMAKE_BUILD_TYPE=Release ../obfuscator/
+          make -j7
           pwd
           ls     
       - name: Creating Config Info
@@ -47,7 +39,7 @@ jobs:
       - name: Packaging the Ollvm
         run: |
           mkdir Ollvm
-          cp -rv ollvm-ndk/out/  Ollvm
+          cp -rv bin  Ollvm
           pushd Ollvm
                 7z a -mx9 ../Ollvm.zip *
           popd
