@@ -42,10 +42,11 @@ jobs:
           cd build
           ccache -M 10G
           cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_INCLUDE_TESTS=OFF ../
+          pwd
           time make -j$(nproc) \
                                         #O="$output_dir" \
                   CC="ccache clang" 2>&1 |tee ollvm.log
-          cd ..
+          pwd       
       - name: Creating Config Info
         run: |
           echo "Device: My Linux
