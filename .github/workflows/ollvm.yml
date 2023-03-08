@@ -9,9 +9,9 @@ jobs:
     steps:
       - name: Installing Dependencies
         run: |
-          #sudo apt update -y
-          #sudo apt-get install -y ccache zip flex bison libncurses-dev gawk  libiberty-dev autoconf kmod bc build-essential gcc libc6 curl libstdc++6 git wget libssl-dev cpio p7zip-full
-          #sudo apt clean
+          sudo apt update -y
+          sudo apt-get install -y ccache zip flex bison libncurses-dev gawk  libiberty-dev autoconf kmod bc build-essential gcc libc6 curl libstdc++6 git wget libssl-dev cpio p7zip-full
+          sudo apt clean
       - name: Cloning Sources and Toolchain
         run: |
           git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 -b ndk-release-r21 --depth=1 --single-branch --no-tags ~/aarch64-linux-android-4.9  
