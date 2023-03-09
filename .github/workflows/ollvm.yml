@@ -25,7 +25,7 @@ jobs:
         run: |
           mkdir obfuscator/build
           pushd obfuscator/build
-                cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_INCLUDE_TESTS=OFF ../obfuscator/
+                cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_INCLUDE_TESTS=OFF ../
                 make -j$(nproc)
           popd
           pwd
