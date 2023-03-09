@@ -15,7 +15,7 @@ jobs:
       - name: Cloning Sources and Toolchain
         run: |
           git clone -b llvm-9.0.1 https://github.com/cduang/obfuscator.git  --depth=1  obfuscator
-          #cd obfuscator
+          cd obfuscator
           pwd
       - name: Checking Version
         run: |    
@@ -23,11 +23,10 @@ jobs:
           gcc --version
       - name: Compiling Ollvm
         run: |
-          mkdir obfuscator/build
-          pushd obfuscator/build
-                cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_INCLUDE_TESTS=OFF ../
-                make -j$(nproc)
-          popd
+          mkdir build
+          cd build
+          cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_INCLUDE_TESTS=OFF ../obfuscator/
+          make -j$(nproc)
           pwd
           ls     
       - name: Creating Config Info
@@ -40,14 +39,9 @@ jobs:
           
       - name: Packaging the Ollvm
         run: |
-          #mkdir Ollvm
-          #cp -rv /home/runner/work/8se_miui/8se_miui/build/bin  Ollvm
-          #pushd Ollvm
-          #      7z a -mx9 ../Ollvm-V9.0.1.zip *
-          #popd
-          
-          pushd obfuscator/build/bin
-                ls
+          mkdir Ollvm
+          cp -rv /home/runner/work/8se_miui/8se_miui/build/bin  Ollvm
+          pushd Ollvm
                 7z a -mx9 ../Ollvm-V9.0.1.zip *
           popd
       - name: Uploading Ollvm Package to GH-Release
