@@ -47,6 +47,7 @@ jobs:
           #popd
           
           pushd obfuscator/build/bin
+                ls
                 7z a -mx9 ../Ollvm-V9.0.1.zip *
           popd
       - name: Uploading Ollvm Package to GH-Release
