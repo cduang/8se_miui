@@ -39,14 +39,14 @@ jobs:
           
       - name: Packaging the Ollvm
         run: |
+          ls
           mkdir Ollvm
           mkdir Ollvm/bin
           mkdir Ollvm/lib
-          mkdir Ollvm/lib64
           mkdir Ollvm/include
+          ls
           cp -rv /home/runner/work/8se_miui/8se_miui/build/bin  Ollvm/bin
           cp -rv /home/runner/work/8se_miui/8se_miui/build/lib  Ollvm/lib
-          cp -rv /home/runner/work/8se_miui/8se_miui/build/lib64  Ollvm/lib64
           cp -rv /home/runner/work/8se_miui/8se_miui/build/include  Ollvm/include
           pushd Ollvm
                 7z a -mx9 ../Ollvm-V9.0.1.zip *
